@@ -35,8 +35,6 @@ var game = scope.game = new Phaser.Game(scope.options.width, scope.options.heigh
 game.state.add('boot', require('./states/boot')(game, scope));
 game.state.add('preload', require('./states/preloader')(game, scope));
 game.state.add('mainMenu', require('./states/mainMenu')(game, scope));
-game.state.add('arcade', require('./states/arcade')(game, scope));
-game.state.add('survival', require('./states/survival')(game, scope));
 game.state.add('options', require('./states/options')(game, scope));
 game.state.add('gameOver', require('./states/gameOver')(game, scope));
 

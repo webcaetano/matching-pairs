@@ -1,33 +1,45 @@
 var utils = require('./../modules/utils');
 
-module.exports = function(game,scope){
-	var assets = scope.assets = {
-		audio:{
-			hit1:'sounds/Hit_Hurt3.ogg',
-			hit2:'sounds/Hit_Hurt41.ogg',
-			music:'sounds/Sound_1.ogg'
-		},
-		images:{
-			mgrad:'images/middle-grad.png',
-			particle:'images/particle-white.png',
-			life:'images/life.png',
-			lifeSlot:'images/life-slot.png',
-			sound:'images/sound.png',
-			noSound:'images/no-sound.png',
-			logo:'images/ponglogo.png'
-		}
-	};
+module.exports = function(game, scope) {
+    return {
+        init() {
+                console.log('running from preloader state');
+            },
 
-	return {
-		init() {
-		},
-		preload() {
-			game.stage.disableVisibilityChange = true;
-			game.stage.backgroundColor = '#A30000';
-			utils.loadAssets(game,assets);
-		},
-		create() {
-			game.state.start('mainMenu');
-		}
-	}
+            preload() {
+                this.start();
+            },
+
+            create() {
+                this.game.load.onLoadStart.add(this.loadStart, this);
+                this.game.load.onFileComplete.add(this.fileComplete, this);
+                this.game.load.onLoadComplete.add(this.loadComplete, this);
+
+            },
+
+            start() {
+                this.game.load.start();
+                // Load Images
+                game.load.image('bg', 'images/bg.png');
+				game.load.atlas('buttons', 'images/buttons.png', 'images/buttons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+            },
+
+            loadStart() {
+                //console.log('Loading Started');
+            },
+
+            fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
+                //console.log("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
+            },
+
+            loadComplete() {
+                //console.log('Finished Loading')
+            },
+
+            update() {
+                if (this.game.load.hasLoaded === true) {
+                    utils.stateChange('mainMenu', scope);
+                }
+            },
+    }
 }
