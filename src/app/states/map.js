@@ -37,7 +37,7 @@ module.exports = function(game, scope) {
                 		levels.children[groupName].children[levelBackgroundName].inputEnabled = true;
                 		levels.children[groupName].children[levelBackgroundName].input.useHandCursor = true;
                 		levels.children[groupName].children[levelBackgroundName].events.onInputDown.add(function() {
-							console.log(this.customID);
+							utils.stateChange('game', scope, {'level': this.customID});
 						}, levels.children[groupName].children[levelBackgroundName]);
 
                 		// create level button

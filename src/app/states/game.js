@@ -4,8 +4,13 @@ var utils = require('./../modules/utils');
 module.exports = function(game, scope) {
 	var self = {};
 	return {
-		init() {
-			console.log('running from game state')
+		init(params) {
+			console.log('running from game state');
+			if(params.level !== null && params.level !== undefined) {
+				
+			} else {
+				// no level id has been passed to this state
+			}
 		},
 		create() {
 			// create background and set to fit canvas

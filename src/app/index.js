@@ -38,6 +38,8 @@ game.state.add('mainMenu', require('./states/mainMenu')(game, scope));
 game.state.add('options', require('./states/options')(game, scope));
 game.state.add('gameOver', require('./states/gameOver')(game, scope));
 game.state.add('map', require('./states/map')(game, scope));
+game.state.add('game', require('./states/game')(game, scope));
+
 
 
 

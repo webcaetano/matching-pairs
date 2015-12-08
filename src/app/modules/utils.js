@@ -12,8 +12,8 @@ self.loadAssets = function(game,assets){
 	for(i in assets.audio) game.load.audio(i, assets.audio[i]);
 }
 
-self.stateChange = function(nextState, scope) {
-	anim.state.fadeOut(scope, function() {scope.game.state.start(nextState)});
+self.stateChange = function(nextState, scope, parameters) {
+	anim.state.fadeOut(scope, function() {scope.game.state.start(nextState, true, false, parameters)});
 }
 
 self.$newSprite = function(game,key,options){
