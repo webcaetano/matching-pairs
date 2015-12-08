@@ -22,28 +22,35 @@ module.exports = function(game, scope) {
                 banner.anchor.setTo(0.5);
 
                 var levels = game.add.group();
-
                 // Create levels 5 per row, 3 rows
+                var x = 0;
                 for (var i = 0; i < 5; i++) {
                     for (var j = 0; j < 3; j++) {
+                    	// Create group
+                    	var groupName = 'levelGroup' + x;
+                    	levels.children[groupName] = game.add.group();
                     	// Create level background
-                    	var buttonGroup = game.add.group();
-                    	var buttonBehind = game.add.image(130 * i + 180, 150 * j + 155, 'buttonBehind');
-                		buttonBehind.scale.setTo(0.45);
-                		buttonBehind.inputEnabled = true;
-                		buttonBehind.input.useHandCursor = true;
-                		buttonBehind.events.onInputDown.add(function() {
-							console.log('');
-						}, this);
+                    	var levelBackgroundName = 'levelBackground' + x;
+                    	levels.children[groupName].children[levelBackgroundName] = game.add.image(130 * i + 180, 150 * j + 155, 'buttonBehind');
+                    	levels.children[groupName].children[levelBackgroundName].customID = x;
+                		levels.children[groupName].children[levelBackgroundName].scale.setTo(0.45);
+                		levels.children[groupName].children[levelBackgroundName].inputEnabled = true;
+                		levels.children[groupName].children[levelBackgroundName].input.useHandCursor = true;
+                		levels.children[groupName].children[levelBackgroundName].events.onInputDown.add(function() {
+							console.log(this.customID);
+						}, levels.children[groupName].children[levelBackgroundName]);
+
                 		// create level button
-                        var level = game.add.sprite(130 * i + 190, 150 * j + 160, 'buttons');
-                        level.frame = 0;
-                        level.scale.setTo(0.40);
+                		var levelButtonName = 'levelButton' + x;
+                        levels.children[groupName].children[levelButtonName] = game.add.sprite(130 * i + 190, 150 * j + 160, 'buttons');
+                        levels.children[groupName].children[levelButtonName].frame = 0;
+                        levels.children[groupName].children[levelButtonName].scale.setTo(0.40);
 
                         // add background and button to same group, then add that group to the levels group
-                        buttonGroup.add(buttonBehind);
-						buttonGroup.add(level);
-                        levels.add(buttonGroup);
+                        levels.children[groupName].add(levels.children[groupName].children[levelBackgroundName]);
+						levels.children[groupName].add(levels.children[groupName].children[levelButtonName]);
+                        levels.add(levels.children[groupName]);
+                        x++;
                     }
                 }
 
@@ -53,6 +60,11 @@ module.exports = function(game, scope) {
                 back.frame = 7;
                 back.scale.setTo(0.25);
                 back.anchor.setTo(0.5);
+                back.inputEnabled = true;
+        		back.input.useHandCursor = true;
+        		back.events.onInputDown.add(function() {
+					console.log('');
+				}, this);
 
                 // create next and back buttons for levels
                 var next = game.add.image(860, 375, 'buttons');
