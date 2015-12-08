@@ -21,6 +21,7 @@ module.exports = function(game, scope) {
                 this.game.load.start();
                 // Load Images
                 game.load.image('bg', 'images/bg.png');
+                game.load.image('mapBanner', 'images/mapBanner.png');
 				game.load.atlas('buttons', 'images/buttons.png', 'images/buttons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
             },
 

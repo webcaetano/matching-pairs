@@ -3,12 +3,12 @@ var self = {};
 self.text = {
 	pop: function(object, scope, callback) {
 		var tweenGrow = scope.game.add.tween(object.scale).to({
-			x: 1.4,
-			y: 1.4
+			x: 0.8,
+			y: 0.8
 		}, 150, "Quart.easeIn");
 		var tweenShrink = scope.game.add.tween(object.scale).to({
-			x: 1,
-			y: 1
+			x: 0.5,
+			y: 0.5
 		}, 150, "Quart.easeOut");
 		if (callback) tweenShrink.onComplete.add(callback);
 		return tweenGrow.chain(tweenShrink)
@@ -16,15 +16,15 @@ self.text = {
 	},
 	overAdd: function(object, scope) {
 		return scope.game.add.tween(object.scale).to({
-			x: 1.15,
-			y: 1.15
+			x: 0.6,
+			y: 0.6
 		}, 100, "Quart.easeIn")
 		.start();
 	},
 	overRemove: function(object, scope) {
 		return scope.game.add.tween(object.scale).to({
-			x: 1,
-			y: 1
+			x: 0.5,
+			y: 0.5
 		}, 100, "Quart.easeOut")
 		.start();
 	}
