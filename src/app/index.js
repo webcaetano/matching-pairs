@@ -22,8 +22,8 @@ var scope = {
         }
     },
     options: {
-        width: 700,
-        height: 500
+        width: 1000,
+        height: 700
     },
     settings: {
         score: 0,

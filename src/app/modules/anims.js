@@ -59,7 +59,7 @@ self.state = {
 		var s = scope.game.add.tween(spr_bg)
 		s.to({
 			alpha: 0
-		}, 350, null);
+		}, 1000, null);
 
 		if (callback) {
 			s.onComplete.add(callback);
