@@ -1,0 +1,16 @@
+{
+	"name": "pong",
+	"private": true,
+	"version": "0.0.0",
+	"dependencies": {
+		"lodash": "~3.10.1",
+		"browser-detection": "browserdetection#~0.3.3",
+		"phaser": "~2.4.3",
+		"stats.js": "*"
+	},
+	"externals": {
+		"lodash": "_",
+		"phaser": "Phaser",
+		"stats": "Stats"
+	}
+}
