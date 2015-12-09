@@ -28,7 +28,6 @@ module.exports = function(game, scope) {
 			facebook.frame = 3;
 			facebook.scale.setTo(0.3);
 
-
 			// create play button
 			var play = game.add.sprite(250,600,'buttons');
 			play.frame = 19;

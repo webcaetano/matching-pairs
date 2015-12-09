@@ -7,12 +7,14 @@ module.exports = function(game, scope) {
 		init(params) {
 			console.log('running from game state');
 			if(params.level !== null && params.level !== undefined) {
-				
+				self.levelID = params.level;
 			} else {
 				// no level id has been passed to this state
 			}
 		},
 		create() {
+			console.log(self.levelID)
+
 			// create background and set to fit canvas
 			var background = game.add.image(0, 0, 'bg');
 			background.height = game.height;

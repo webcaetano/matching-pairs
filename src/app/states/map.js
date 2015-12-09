@@ -31,20 +31,37 @@ module.exports = function(game, scope) {
                     	levels.children[groupName] = game.add.group();
                     	// Create level background
                     	var levelBackgroundName = 'levelBackground' + x;
-                    	levels.children[groupName].children[levelBackgroundName] = game.add.image(130 * i + 180, 150 * j + 155, 'buttonBehind');
+                    	levels.children[groupName].children[levelBackgroundName] = game.add.image(130 * i + 240, 150 * j + 220, 'buttonBehind');
                     	levels.children[groupName].children[levelBackgroundName].customID = x;
                 		levels.children[groupName].children[levelBackgroundName].scale.setTo(0.45);
+                        levels.children[groupName].children[levelBackgroundName].originalScale = 0.45;
+                        levels.children[groupName].children[levelBackgroundName].anchor.setTo(0.5);
                 		levels.children[groupName].children[levelBackgroundName].inputEnabled = true;
                 		levels.children[groupName].children[levelBackgroundName].input.useHandCursor = true;
                 		levels.children[groupName].children[levelBackgroundName].events.onInputDown.add(function() {
 							utils.stateChange('game', scope, {'level': this.customID});
 						}, levels.children[groupName].children[levelBackgroundName]);
+                        
+                       
+
+                        
+
 
                 		// create level button
                 		var levelButtonName = 'levelButton' + x;
-                        levels.children[groupName].children[levelButtonName] = game.add.sprite(130 * i + 190, 150 * j + 160, 'buttons');
+                        levels.children[groupName].children[levelButtonName] = game.add.sprite(130 * i + 240, 150 * j + 210, 'buttons');
                         levels.children[groupName].children[levelButtonName].frame = 0;
                         levels.children[groupName].children[levelButtonName].scale.setTo(0.40);
+                        levels.children[groupName].children[levelButtonName].anchor.setTo(0.5);
+                        levels.children[groupName].children[levelButtonName].originalScale = 0.40;
+
+                        levels.children[groupName].children[levelBackgroundName].events.onInputOver.add(function() {
+                            anim.levelButton.overAdd(this, scope);
+                        }, {'object1': levels.children[groupName].children[levelBackgroundName], 'object2': levels.children[groupName].children[levelButtonName]});
+
+                         levels.children[groupName].children[levelBackgroundName].events.onInputOut.add(function() {
+                            anim.levelButton.overRemove(this, scope);
+                        }, {'object1': levels.children[groupName].children[levelBackgroundName], 'object2': levels.children[groupName].children[levelButtonName]});
 
                         // add background and button to same group, then add that group to the levels group
                         levels.children[groupName].add(levels.children[groupName].children[levelBackgroundName]);
