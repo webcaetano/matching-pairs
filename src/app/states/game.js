@@ -13,7 +13,7 @@ module.exports = function(game, scope) {
                 }
 
                 // setup initial variables
-                this.rows = 4;
+                this.rows = 3;
                 this.cols = 4;
                 this.grid = new Array();
             },
@@ -35,6 +35,28 @@ module.exports = function(game, scope) {
                 // setup grid
                 var startX = 280;
                 var startY = 100;
+
+                //setup positions
+                var positions = new Array();
+                // start on used true so first loop forces a new instance
+                var index = 0;
+                var numbers = {number: null, used: true};
+                for (var x = 0; x <= this.cols; x++) {
+                    for (var y = 0; y <= this.rows; y++) {
+                    	if (numbers.used === true) {
+                    		numbers.number = game.rnd.integerInRange(0,3);
+                    		numbers.used = false;
+                    		positions.push({frame:numbers.number, index: index, pair: index});
+                    	} else {
+                    		numbers.used = true;
+                    		positions.push({frame:numbers.number, index: index, pair: index -1});
+                    	}
+                    	index++;
+                    }
+                }
+
+               utils.shuffleArray(positions);
+
                 for (var x = 0; x <= this.cols; x++) {
                     for (var y = 0; y <= this.rows; y++) {
                         this.grid.push({
@@ -48,8 +70,9 @@ module.exports = function(game, scope) {
 
                 // add artwork
                 for (var i in this.grid) {
-                	var image = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', 4);
+                	var image = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', positions[i].frame);
                 	image.anchor.set(0.5);
+                	image.customID = positions[i].index;
                 }
                 console.log(this.grid);
             },
