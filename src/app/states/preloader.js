@@ -24,7 +24,10 @@ module.exports = function(game, scope) {
                 game.load.image('mapBanner', 'images/mapBanner.png');
                 game.load.image('gameContainer', 'images/game/container.png');
                 game.load.image('buttonBehind', 'images/buttonBehind.png');
-				game.load.atlas('buttons', 'images/buttons.png', 'images/buttons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+				// Load attlases
+                game.load.atlas('buttons', 'images/buttons.png', 'images/buttons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+                // Load Sprite Sheets
+                game.load.spritesheet('gameImages', 'images/game/imagesSpriteSheet.png', 100, 100);
             },
 
             loadStart() {

@@ -16,6 +16,18 @@ self.stateChange = function(nextState, scope, parameters) {
 	anim.state.fadeOut(scope, function() {scope.game.state.start(nextState, true, false, parameters)});
 }
 
+self.shuffleArray = function(array) {
+	var currentIndex = array.length, temporaryValue, randomIndex ;
+	while (0 !== currentIndex) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+	return array;
+}
+
 self.$newSprite = function(game,key,options){
 	var defaults = {
 		x:0,

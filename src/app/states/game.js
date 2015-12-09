@@ -2,8 +2,7 @@ var anim = require('./../modules/anims');
 var utils = require('./../modules/utils');
 
 module.exports = function(game, scope) {
-    var self = {
-    };
+    var self = {};
     return {
         init(params) {
                 console.log('running from game state');
@@ -16,7 +15,7 @@ module.exports = function(game, scope) {
                 // setup initial variables
                 this.rows = 4;
                 this.cols = 4;
-                this.grid;
+                this.grid = new Array();
             },
 
             preload() {
@@ -34,25 +33,29 @@ module.exports = function(game, scope) {
                 container.anchor.set(0.5);
 
                 // setup grid
+                var startX = 280;
+                var startY = 100;
                 for (var x = 0; x <= this.cols; x++) {
-                	for (var y = 0; y <= this.rows; y++) {
-                		var graphics = game.add.graphics(100,100);
-                		graphics.lineStyle(2, 0x0000FF, 1);
-    					graphics.drawRect(100, 100, 100 * x, 100 * y);
-                	}
+                    for (var y = 0; y <= this.rows; y++) {
+                        this.grid.push({
+                            x: x,
+                            y: y,
+                            posX: 115 * x + startX,
+                            posY: 115 * y + startY
+                        });
+                    }
                 }
 
-                // place blanks
-				for (var x = 0; x <= this.cols; x++) {
-                	for (var y = 0; y <= this.rows; y++) {
-                		
-                	}
+                // add artwork
+                for (var i in this.grid) {
+                	var image = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', 4);
+                	image.anchor.set(0.5);
                 }
-                // place art
+                console.log(this.grid);
             },
 
             update() {
-                
+
             }
     }
 }
