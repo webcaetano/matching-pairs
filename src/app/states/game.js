@@ -93,6 +93,7 @@ module.exports = function(game, scope) {
                     this.grid[spriteName].anchor.set(0.5);
                     this.grid[spriteName].originalFrame = positions[i].frame;
                     this.grid[spriteName].customID = positions[i].index;
+                    this.grid[spriteName].pair = positions[i].pair;
                     this.grid[spriteName].inputEnabled = true;
                     this.grid[spriteName].input.useHandCursor = true;
                     var that = this;
@@ -107,7 +108,39 @@ module.exports = function(game, scope) {
             },
 
             userInput(obj) {
+                if (this.user.firstSelection === null) {
+                    this.user.firstSelection = obj;
+                    obj.frame = obj.originalFrame
+                } else {
+                    this.user.secondSelection = obj;
+                    obj.frame = obj.originalFrame;
+                    this.matchSquares(this.user.firstSelection, this.user.secondSelection);
+                    this.user.firstSelection = null
+                    this.user.secondSelection = null;
+                }
+            },
+
+            matchSquares(sqr1, sqr2) {
+                console.log(sqr1.pair, sqr2.pair)
+                if (sqr1.pair === sqr2.pair) {
+                    console.log('match');
+                } else {
+                    this.resetSquare(this.getSquare(sqr1.customID));
+                    this.resetSquare(this.getSquare(sqr2.customID));
+                }
+            },
+
+            resetSquare(obj) {
                 obj.frame = obj.originalFrame;
+            },
+
+            getSquare(customID){
+                var obj = null;
+                for (var i in this.grid) {
+                    if (grid[i].customID === customID) {
+                        return grid[i];
+                    }
+                }
             }
     }
 }
