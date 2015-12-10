@@ -71,19 +71,24 @@ module.exports = function(game, scope) {
                 // add artwork
                 for (var i in this.grid) {
                 	var spriteName = "box" + positions[i].index;
-                	this.grid[spriteName] = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', positions[i].frame);
+                	this.grid[spriteName] = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', 4);
                 	this.grid[spriteName].anchor.set(0.5);
+                    this.grid[spriteName].originalFrame = positions[i].frame;
                 	this.grid[spriteName].customID = positions[i].index;
                 	this.grid[spriteName].inputEnabled = true;
 					this.grid[spriteName].input.useHandCursor = true;
 					this.grid[spriteName].events.onInputUp.add(function() {
-						console.log(this)
+                        userInput(this);
 					},this.grid[spriteName]);
                 }
                 console.log(this.grid);
             },
 
             update() {
+
+            },
+
+            userInput(obj) {
 
             }
     }
