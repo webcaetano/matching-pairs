@@ -17,6 +17,7 @@ module.exports = function(game, scope) {
                 this.cols = 4;
                 this.grid = new Array();
                 this.user = {
+                    inputEnabled: false,
                     firstSelection: null,
                     secondSelection: null
                 };
@@ -101,6 +102,9 @@ module.exports = function(game, scope) {
                         that.userInput(this);
                     }, this.grid[spriteName], this);
                 }
+
+                // Allow player to start playing the game
+                this.user.inputEnabled = true;
             },
 
             update() {
@@ -108,18 +112,22 @@ module.exports = function(game, scope) {
             },
 
             userInput(obj) {
-                if (this.user.firstSelection === null) {
-                    this.user.firstSelection = obj;
-                    obj.frame = obj.originalFrame
-                } else {
-                    if (this.user.firstSelection === obj) {
-                        // same square selected.. do nothing
+                if (this.user.inputEnabled === true) {
+                    if (this.user.firstSelection === null) {
+                        this.user.firstSelection = obj;
+                        obj.frame = obj.originalFrame
+                    } else {
+                        if (this.user.firstSelection === obj) {
+                            // same square selected.. do nothing
+                        } else {
+                            this.user.inputEnabled = false;
+                            this.user.secondSelection = obj;
+                            obj.frame = obj.originalFrame;
+                            this.matchSquares(this.user.firstSelection, this.user.secondSelection);
+                            this.user.firstSelection = null;
+                            this.user.secondSelection = null;
+                        }
                     }
-                    this.user.secondSelection = obj;
-                    obj.frame = obj.originalFrame;
-                    this.matchSquares(this.user.firstSelection, this.user.secondSelection);
-                    this.user.firstSelection = null
-                    this.user.secondSelection = null;
                 }
             },
 
@@ -136,10 +144,11 @@ module.exports = function(game, scope) {
             resetSquare(obj) {
                 this.game.time.events.add(750, function() {
                     obj.frame = 4;
+                    this.user.inputEnabled = true;
                 }, this);
             },
 
-            getSquare(customID){
+            getSquare(customID) {
                 var obj = null;
                 for (var i in this.grid) {
                     if (this.grid[i].customID === customID) {
