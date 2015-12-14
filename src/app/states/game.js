@@ -52,11 +52,16 @@ module.exports = function(game, scope) {
                     number: null,
                     used: true
                 };
+
+                var spritesArray = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+
                 for (var x = 0; x <= this.cols; x++) {
                     for (var y = 0; y <= this.rows; y++) {
                         if (numbers.used === true) {
-                            numbers.number = game.rnd.integerInRange(0, 3);
+                            //numbers.number = game.rnd.integerInRange(0, 3);
+                            numbers.number = spritesArray.splice(game.rnd.integerInRange(0, spritesArray.length - 1), 1)[0];
                             numbers.used = false;
+                            console.log(numbers.number);
                             positions.push({
                                 frame: numbers.number,
                                 index: index,
@@ -90,7 +95,7 @@ module.exports = function(game, scope) {
                 // add artwork
                 for (var i in this.grid) {
                     var spriteName = "box" + positions[i].index;
-                    this.grid[spriteName] = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', 4);
+                    this.grid[spriteName] = game.add.sprite(this.grid[i].posX, this.grid[i].posY, 'gameImages', 0);
                     this.grid[spriteName].anchor.set(0.5);
                     this.grid[spriteName].originalFrame = positions[i].frame;
                     this.grid[spriteName].customID = positions[i].index;
@@ -112,7 +117,7 @@ module.exports = function(game, scope) {
             },
 
             userInput(obj) {
-                if (this.user.inputEnabled === true) {
+                if (this.user.inputEnabled === true && obj.frame !== obj.originalFrame) {
                     if (this.user.firstSelection === null) {
                         this.user.firstSelection = obj;
                         obj.frame = obj.originalFrame
@@ -132,9 +137,8 @@ module.exports = function(game, scope) {
             },
 
             matchSquares(sqr1, sqr2) {
-                console.log(sqr1.pair, sqr2.pair)
                 if (sqr1.pair === sqr2.pair) {
-                    console.log('match');
+                    this.user.inputEnabled = true;
                 } else {
                     this.resetSquare(this.getSquare(sqr1.customID));
                     this.resetSquare(this.getSquare(sqr2.customID));
@@ -143,7 +147,7 @@ module.exports = function(game, scope) {
 
             resetSquare(obj) {
                 this.game.time.events.add(750, function() {
-                    obj.frame = 4;
+                    obj.frame = 0;
                     this.user.inputEnabled = true;
                 }, this);
             },
