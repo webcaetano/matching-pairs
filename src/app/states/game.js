@@ -112,6 +112,9 @@ module.exports = function(game, scope) {
                     this.user.firstSelection = obj;
                     obj.frame = obj.originalFrame
                 } else {
+                    if (this.user.firstSelection === obj) {
+                        // same square selected.. do nothing
+                    }
                     this.user.secondSelection = obj;
                     obj.frame = obj.originalFrame;
                     this.matchSquares(this.user.firstSelection, this.user.secondSelection);
@@ -131,14 +134,16 @@ module.exports = function(game, scope) {
             },
 
             resetSquare(obj) {
-                obj.frame = obj.originalFrame;
+                this.game.time.events.add(750, function() {
+                    obj.frame = 4;
+                }, this);
             },
 
             getSquare(customID){
                 var obj = null;
                 for (var i in this.grid) {
-                    if (grid[i].customID === customID) {
-                        return grid[i];
+                    if (this.grid[i].customID === customID) {
+                        return this.grid[i];
                     }
                 }
             }
