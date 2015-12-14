@@ -16,6 +16,10 @@ module.exports = function(game, scope) {
                 this.rows = 3;
                 this.cols = 4;
                 this.grid = new Array();
+                this.gamePlayStatus = {
+                    totalMatches: (this.rows * this.cols) / 2,
+                    matchesFound: 0
+                };
                 this.user = {
                     inputEnabled: false,
                     firstSelection: null,
@@ -55,8 +59,8 @@ module.exports = function(game, scope) {
 
                 var spritesArray = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 
-                for (var x = 0; x <= this.cols; x++) {
-                    for (var y = 0; y <= this.rows; y++) {
+                for (var x = 1; x <= this.cols; x++) {
+                    for (var y = 1; y <= this.rows; y++) {
                         if (numbers.used === true) {
                             //numbers.number = game.rnd.integerInRange(0, 3);
                             numbers.number = spritesArray.splice(game.rnd.integerInRange(0, spritesArray.length - 1), 1)[0];
@@ -81,8 +85,8 @@ module.exports = function(game, scope) {
 
                 utils.shuffleArray(positions);
 
-                for (var x = 0; x <= this.cols; x++) {
-                    for (var y = 0; y <= this.rows; y++) {
+                for (var x = 1; x <= this.cols; x++) {
+                    for (var y = 1; y <= this.rows; y++) {
                         this.grid.push({
                             x: x,
                             y: y,
@@ -138,8 +142,12 @@ module.exports = function(game, scope) {
 
             matchSquares(sqr1, sqr2) {
                 if (sqr1.pair === sqr2.pair) {
+                    // Match found
                     this.user.inputEnabled = true;
+                    this.gamePlayStatus.matchesFound++;
+                    this.gameStatus();
                 } else {
+                    // No match found, reset squares
                     this.resetSquare(this.getSquare(sqr1.customID));
                     this.resetSquare(this.getSquare(sqr2.customID));
                 }
@@ -159,6 +167,10 @@ module.exports = function(game, scope) {
                         return this.grid[i];
                     }
                 }
+            },
+
+            gameStatus() {
+                console.log(this.gamePlayStatus.totalMatches, this.gamePlayStatus.matchesFound);
             }
     }
 }
