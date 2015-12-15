@@ -13,6 +13,9 @@ module.exports = function(game, scope) {
 			background.height = game.height;
 			background.width = game.width;
 
+			var gray = game.add.filter('Gray');
+  			background.filters = [gray];
+
 			// create music button
 			var music = game.add.sprite(10,10,'buttons');
 			music.frame = 12;

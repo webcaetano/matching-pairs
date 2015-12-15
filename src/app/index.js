@@ -32,6 +32,10 @@ var scope = {
 };
 var game = scope.game = new Phaser.Game(scope.options.width, scope.options.height, browser.browser == 'ie' ? Phaser.CANVAS : Phaser.WEBGL, 'test-game');
 
+//load plugin
+require('./plugins/Gray')();
+
+
 game.state.add('boot', require('./states/boot')(game, scope));
 game.state.add('preload', require('./states/preloader')(game, scope));
 game.state.add('mainMenu', require('./states/mainMenu')(game, scope));

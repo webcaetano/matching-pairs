@@ -8,8 +8,6 @@ module.exports = function(game,scope){
 		game.scale.windowConstraints.bottom = 'visual';
 		game.scale.parentIsWindow = true;
 		game.input.gamepad.start();
-		this.load.script('filterX', 'app/plugins/BlurX.js');
-		this.load.script('filterY', 'app/plugins/BlurY.js');
 	};
 
 	state.create = function() {
