@@ -13,8 +13,8 @@ module.exports = function(game, scope) {
                 }
 
                 // setup initial variables
-                this.rows = 3;
-                this.cols = 4;
+                this.rows = 4;
+                this.cols = 5;
                 this.grid = new Array();
                 this.gamePlayStatus = {
                     totalMatches: (this.rows * this.cols) / 2,
@@ -83,7 +83,9 @@ module.exports = function(game, scope) {
                     }
                 }
 
-                utils.shuffleArray(positions);
+                for (var i = 0; i < 10; i++) {
+                    utils.shuffleArray(positions);
+                }
 
                 for (var x = 1; x <= this.cols; x++) {
                     for (var y = 1; y <= this.rows; y++) {
@@ -171,6 +173,7 @@ module.exports = function(game, scope) {
 
             gameStatus() {
                 console.log(this.gamePlayStatus.totalMatches, this.gamePlayStatus.matchesFound);
-            }
+            },
+
     }
 }

@@ -1,5 +1,6 @@
 var anim = require('./../modules/anims');
 var utils = require('./../modules/utils');
+var popup = require('./../modules/popup');
 
 module.exports = function(game, scope) {
     var self = {
@@ -39,13 +40,10 @@ module.exports = function(game, scope) {
                 		levels.children[groupName].children[levelBackgroundName].inputEnabled = true;
                 		levels.children[groupName].children[levelBackgroundName].input.useHandCursor = true;
                 		levels.children[groupName].children[levelBackgroundName].events.onInputDown.add(function() {
-							utils.stateChange('game', scope, {'level': this.customID});
+							//utils.stateChange('game', scope, {'level': this.customID});
+                            popup.popup.blurBackground(scope);
 						}, levels.children[groupName].children[levelBackgroundName]);
                         
-                       
-
-                        
-
 
                 		// create level button
                 		var levelButtonName = 'levelButton' + x;
@@ -90,9 +88,13 @@ module.exports = function(game, scope) {
                 next.anchor.setTo(0.5);
 
                 anim.state.fadeIn(this);
+
             },
+
             update() {
 
             },
+
+
     }
 }

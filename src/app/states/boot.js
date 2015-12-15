@@ -5,14 +5,14 @@ module.exports = function(game,scope){
 		preload() {
 			game.scale.windowConstraints.bottom = 'visual';
 			game.scale.parentIsWindow = true;
-
-			//game.load.image('loading-bg', require('../../media/images/loadingBarBG.png'));
-			//game.load.image('loading-fg', require('../../media/images/loadingBarFG.png'));
-
 			game.input.gamepad.start();
+			this.load.script('filterX', 'app/plugins/BlurX.js');
+			this.load.script('filterY', 'app/plugins/BlurY.js');
 		},
 		create() {
+
 			game.state.start('preload');
+
 		}
 	}
 }

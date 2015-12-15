@@ -103,4 +103,39 @@ self.state = {
     }
 }
 
+self.map = {
+    popAll: function(object, scope, callback) {
+        for (var obj in object) {
+            var tweenGrow = scope.game.add.tween(object.scale).to({
+                x: 0.8,
+                y: 0.8
+            }, 150, "Quart.easeIn");
+            var tweenShrink = scope.game.add.tween(object.scale).to({
+                x: 0.5,
+                y: 0.5
+            }, 150, "Quart.easeOut");
+            tweenGrow.chain(tweenShrink);
+            tweenGrow.start;
+        }
+    },
+    overAdd: function(object, scope) {
+        for (var obj in object) {
+            scope.game.add.tween(object[obj].scale).to({
+                    x: 0.48,
+                    y: 0.48
+                }, 100, "Quart.easeIn")
+                .start();
+        }
+    },
+    overRemove: function(object, scope) {
+        for (var obj in object) {
+            scope.game.add.tween(object[obj].scale).to({
+                x: object[obj].originalScale,
+                y: object[obj].originalScale
+            }, 100, "Quart.easeOut")
+            .start();
+        }
+    }
+}
+
 module.exports = self;
